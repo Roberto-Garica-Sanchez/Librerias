@@ -1,6 +1,6 @@
 <?php
-if(!include_once($_SERVER["DOCUMENT_ROOT"]."/libre_v1.php")){echo"Error De Carga libre v1";}
-if(!include_once($_SERVER["DOCUMENT_ROOT"]."/libre_v2.php")){echo"Error De Carga libre v2";}
+if(!include_once("libre_v1.php")){echo"Error De Carga libre v1";}
+if(!include_once("libre_v2.php")){echo"Error De Carga libre v2";}
 
 /*
 if(!empty($_POST['Soft_version'])=='Ares'){

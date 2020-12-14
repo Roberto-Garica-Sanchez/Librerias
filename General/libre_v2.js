@@ -843,7 +843,7 @@ function load(){
 	
 	//if(ismobile==true)alert("telefono");
 	//if(ismobile==false)alert("No es celular");
-	
+	if(document.getElementById('id_s'))
 	if(id_s.value=="Cuentas"){
 		if(id_I.value=="Altas"){
 			if(sub1=="Operadores"){
