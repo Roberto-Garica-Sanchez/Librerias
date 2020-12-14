@@ -1,0 +1,211 @@
+body{
+  color: white;
+  font-family: arial;
+  background: #343434;
+}
+/*--menu--*/
+#logo{
+  position: absolute;
+  width: 60px;
+  left: 30px;
+}
+#menu-botones{
+  position: absolute;
+  left: 130px;
+  margin: 0px;
+  padding: 0px;
+  float: left;
+  width: 500px;
+  list-style: none;
+}
+/*
+#id{
+  color: #fff;
+  float: left;
+  height: 45px;
+  width: 100px;
+  border-width: 0px 0px 5px;
+  background: #000;
+  border-bottom-color: green;
+}*/
+#id_s{
+  color: #fff;
+  float: left;
+  height: 45px;
+  width: 100px;
+  border-width: 0px 0px 5px;
+  background: #000;
+  border-bottom-color: greenyellow; 
+}
+#id_s:hover{
+  border-bottom-color: brown;
+}
+#menu{
+  position: relative;
+  width: 1000px;
+  height: 50px;
+  margin-right: auto;
+  margin-left: auto;  
+}
+#conte-fijo
+{
+  position: fixed;
+  background: black;
+  z-index: 1;
+  top: 0px;
+  left: 0px;
+  height: 50px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+/*--menu--*/
+/*menu isquierda*/
+#smenu-botones{
+  margin: 0px;
+  padding: 0px;
+  list-style: none;
+}
+#idI:hover{
+  background: #345634;
+}
+#idI{
+  color: #fff;
+  width: 100px;
+  border-width: 0px 5px 0px 0px;
+  background: RGBA(0, 0, 0, 0.76);  border-right-color: #444; 
+  text-align: left;
+}
+#id_I{
+  color: #fff;
+  width: 100px;
+  border-width: 0px 5px 0px 0px;
+  background: RGBA(0, 0, 0, 0.76);  border-right-color: greenyellow;
+  text-align: left;  
+}
+#conte-isqu{
+  position: absolute;
+  top: 60px;
+/*  left: 47px; */
+  width: 105px;
+  z-index: 1;
+}
+/*menu isquierda*/
+/*menu derecha*/
+#menu-list{
+  margin: 0px 0px;
+  padding: 0px;
+  list-style: none;
+}
+#idD{
+  color: #fff;
+  width: 100px;
+  border-width: 0px 0px 0px 5px;
+  background: RGBA(0, 0, 0, 0.76);
+  border-left-color: #444;
+}
+#ID_D{
+  color: #fff;
+  width: 100px;
+  border-width: 0px 0px 0px 5px;
+  background: RGBA(0, 0, 0, 0.76);
+  border-left-color: greenyellow;
+}
+ #conte-dere{
+  width: 100px;
+  float: right;
+  position: relative;
+  background: RGBA(0, 0, 0, 0.76);
+}
+/*menu derecha*/
+/*--Principal--*/
+* #Conte-pri{
+  position: relative;
+  overflow: hidden;
+  top: 45px;
+  width: 1000px;
+  height: 600px;
+  background: url("8.jpg");
+  margin-right: auto;
+  margin-left: auto;  
+}
+#viaticos{
+  position: absolute;
+  left: 100px;
+}
+.Medio{
+  width: 100px;
+  border-radius: 0px;
+  border-width: 0px;
+}
+.Medio:hover{
+  background: #345;
+  color: white;
+}
+.Medio:focus{
+  background: #1A86FF;
+  color: white;
+}
+#comenta{
+  transition-delay: 2s;
+  transition-duration: 2s;
+  height: 20px; 
+  overflow: hidden;
+}
+#comenta:hover{
+  position: relative;
+  height: 150px;
+  transition-delay: 2s;
+  transition-duration: 2s;
+}
+#comenta:focus{
+  position: relative;
+  height: 150px;
+  transition-delay: 2s;
+  transition-duration: 2s;
+}
+#hexagon{
+  width: 100px; 
+  height: 55px; 
+  background: #FDFD96;
+  position: absolute;
+ /*top:50px;*/
+} 
+#hexagon:hover{
+  background: gold;
+}
+#hexagon:before{
+  content: ""; 
+  position: absolute;
+  top: -25px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-bottom: 25px solid #FDFD96; 
+}
+#hexagon:after{
+  content: ""; 
+  position: absolute;
+  bottom: -25px;
+  left: 0;
+  width: 0;
+  height: 0;
+  border-left: 50px solid transparent;
+  border-right: 50px solid transparent;
+  border-top: 25px solid #FDFD96; 
+}
+#scrolcenter{
+overflow-y: scroll;
+overflow-x: hidden;
+position: absolute;
+background: rgba(0, 0, 255, 0.31);
+left: 100px;
+height: 600px;
+width: 680px;
+}
+
+
+
+

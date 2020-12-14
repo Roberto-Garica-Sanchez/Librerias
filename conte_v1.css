@@ -1,0 +1,289 @@
+#style_co_top{
+	position: fixed;
+	background: black;
+	z-index: 1;
+	top: 0px;
+	left: 0px;
+	height: 50px;
+	width: 100%;
+}
+#style_co_left{
+	position: absolute;
+	top: 50px;
+	bottom: 0px;
+	left: 0px;
+	width: 120px;
+	background: #102f41;
+	overflow-y: auto;
+	overflow-x: hidden;
+
+}
+#style_co_centro{
+    background: url(../img/libre3.jpg);
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    top: 50px;
+    max-width: 1080px;
+    max-height: 800px;
+    min-width: 850px;
+    min-height: 500px;
+    overflow: auto;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+.botone_n{
+    width: 115px;
+    height: 21px;
+    background: black;
+    color: white;
+    padding: 0px;
+    margin: 1px 0px;
+    border: 0px;
+    text-align: center;
+    float: left;
+}
+.botones_submenu{
+    width: 100%;
+    height: 21px;
+    background: #292a2d;
+    color: white;
+    padding: 0px;
+    margin: 1px 0px;
+    border: 0px;
+    text-align: center;
+    float: left;
+}
+.botones_submenu:hover{
+    background: #102f41;
+    border: solid 1px cornflowerblue;
+}
+.submenu{
+	width: 190px;
+	background: #1c1d1f;
+	position: absolute;
+	right: 10px;
+	top: 50px;
+	box-shadow: 0px 5px 8px #000;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	overflow: hidden;
+    padding: 20px 5px 5px 5px;
+}
+.submenuhidden{
+	overflow: hidden;
+	position: absolute;
+    height: 0px;
+}
+.lateral{   
+	position: absolute;
+    left: 130px;
+    height: 50px;
+    right: 200px;
+} 
+.iselect{
+	background: RGBA(49, 114, 177, 0.8);
+}
+.pendiente{
+	background: #343434;
+	color: red;
+}
+.revisado{
+	background: #343434;
+	color: yellowgreen;
+}
+.respuestas{
+	color: white;
+    border: 5px;
+    position: absolute;
+    left: 200px;
+    top: 55px;
+    right: 5px;
+    background: rgb(28, 29, 31);
+    bottom: 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.late{
+	width: 184px;
+    bottom: 5px;
+    position: absolute;
+    background: rgb(59, 91, 140);
+    top: 210px;
+    overflow: hidden;
+    padding: 5px 5px 5px 5px;
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+.carda1{
+	position: relative;
+}
+.Consola{  
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 605px;
+    height:100px;
+    background: #05486c;
+    z-index: 1;
+    transition: 2s;
+}
+.min{
+	width: 200px; 
+	height: 20px; 
+	background: rgba(5, 72, 108, 0.67); 
+	position: absolute; 
+	overflow: hidden; 
+	float: left;
+    transition: 2s;
+    bottom: 0px;
+}
+#noselet{
+    color: black;
+    width: 100px;
+    border-radius: 0px;
+    border-width: 0px;
+    background: #0066ff;
+}
+#selet{
+    color: white;
+    width: 100px;
+    border-radius: 0px;
+    border-width: 0px;
+    background: #00a1ff;
+}
+.gene_list_arras{     
+	bottom: 126px;
+    position: absolute;
+    background: #28336985;
+    padding: 2px;
+    width: 277px;
+    left: 0;
+    overflow: hidden;
+    transition: 2s; 
+	height: 148px
+}
+.gene_list_arras_mini{ 
+	bottom: 0px;
+    position: absolute;
+    background: #28336985;
+    padding: 0px;
+    width: 200px;
+    left: 200px;
+    overflow: hidden;
+    transition: 2s;
+    height: 20px;
+}
+.gene_combustible{    
+	position: absolute;
+    padding: 2px;
+    background: #28336985;
+    left: 0px;
+    right: 836px;   
+	width: 406px;
+    transition: 2s;
+    bottom: 20px;
+	overflow: hidden;
+	
+}
+.gene_combustible_mini{   
+    position: absolute;
+    padding: 0px;
+    background: #28336985;
+    bottom: 20px;
+    left: 0px;
+    width: 200px;
+    overflow: hidden;
+    height: 20px;
+    transition: 2s;
+}
+.gene_arrastre{
+    left: 100px;
+    width: 202px;
+    position: absolute;
+    background: #28336985;
+    padding: 2px;
+    overflow: hidden;
+    transition: 2s;
+    bottom: 278px;
+}
+.gene_arrastre_mini{
+    left: 200px;
+    width: 200px;
+    position: absolute;
+    background: #28336985;
+    padding: 0px;
+    height: 20px;
+    overflow: hidden;
+    transition: 2s;
+    bottom: 20px;
+}
+.general_info_mini{
+	padding: 5px;
+    background: #05486cab;
+    width: 865px;
+    right: 230px;
+    top: 60px;
+    bottom: 0px;
+    position: absolute;
+    transition: 2s;
+    color: white;
+	box-shadow: inset 0px 0px 0px 1px white;
+}
+.gene_actual{
+    display: block;
+    position: relative;
+    background: #28336985;
+    padding: 5px;
+    width: 640px;
+    float: right;
+}
+.mas_opciones1{
+	position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 131px;
+    height: 20px;
+    background: #05486c;
+	transition: 1s;
+	overflow: hidden;
+     box-shadow: 0px 0px 0px 1px white;
+}
+.mas_opciones1_mini{
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    width: 131px;
+    height: 350px;
+    background: #05486c;
+    transition: 1s;
+    z-index: 1;
+    overflow: hidden;
+    box-shadow: 0px 0px 0px 1px white;
+}
+.consola_guarda{
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    height: 590px;
+    width: 1240px;
+    background: #3172b1cc;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 20px 1px black;
+    z-index: 1;
+	transition: 2s;
+}
+.consola_guarda_mini{
+	position: absolute;
+    top: 118px;
+    left: 0px;
+    height: 205px;
+    width: 101px;
+    background: #3172b1cc;
+    overflow-y: hidden;
+    overflow-x: hidden;
+    box-shadow: 0px 0px 20px 1px black;
+    z-index: 1;
+	transition: 2s;
+}

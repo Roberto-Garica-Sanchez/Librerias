@@ -1,0 +1,152 @@
+.body1{
+	background: #102f41;
+	font-family: arial;
+}
+#comenta{
+  transition-delay: 2s;
+  transition-duration: 2s;
+  height: 20px; 
+  overflow: hidden;
+}
+#comenta:hover{
+  position: relative;
+  height: 150px;
+  transition-delay: 2s;
+  transition-duration: 2s;
+}
+#comenta:focus{
+  position: relative;
+  height: 150px;
+  transition-delay: 2s;
+  transition-duration: 2s;
+}
+#idI:hover{
+  background: RGBA(49, 114, 177, 0.8);
+  border-color: #ffed25;
+}
+#idI{
+	/*
+	color: #fff;
+    width: 100px;
+    border-width: 0px 0px 5px 0px;
+    background: RGBA(0, 0, 0, 0);
+    border-color: #444;
+    text-align: left;
+    height: 40px;
+    font-size: 20px;
+    width: 120px;
+    top: 10px;
+    position: relative;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;*/
+	
+    background: black;
+    color: white;
+    height: 50px;
+    font-size: 15px;
+}
+#id_I{
+    background: #343434;
+    color: white;
+    height: 50px;
+    font-size: 15px;
+}
+#sub_login{
+    position: fixed;
+	top: 70px;
+	right: 10px;
+	width: 300px;
+	height: 200px;
+	background: #34374b;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+#ini_login{
+    position: absolute;
+	background: #3b75b0;
+    top: 15px;
+	right: 10px;
+    width: 80px;
+    height: 35px;
+}
+#user_login{
+    position: absolute;
+	background: #3b75b0;
+    left: 80px;
+    top: 15px;
+    width: 120px;
+    height: 35px;
+}
+#img_login{
+    position: absolute;
+    width: 60px;
+    left: 10px;
+    box-shadow: 0px 0px 1px black;
+}
+#menu1{
+	width: 		100%;
+    height: 	70px;
+    background: #102f41;
+    position: 	fixed;
+    top: 		0px;
+    left: 		0px;
+}
+#menu4{
+	position: 	absolute;
+    bottom:		0px;
+    left: 		130px;
+    right: 		0px;
+    height: 	70px;
+    background: #102f41;
+
+}
+#login{
+	position: 	absolute;
+	top: 		0px;
+	height: 	70px;
+	right: 		10px;
+	width: 		350px;
+	background: #102f41;
+	box-shadow: 0px 1px 1px 1px white;
+}
+#logo{
+	position: 	absolute;
+    top: 		0px;
+    left: 		0px;
+    height: 	70px;
+    width: 		120px;
+    background: #102f41;
+    box-shadow: 0px 1px 1px 1px white;
+
+}
+.error{
+  color: black;
+  width: 100px;
+  border-radius: 0px;
+  border-width: 0px;
+  background: #0b9df9;
+}
+#win_prueba{
+	width: 200px; height: 150px; background: rgba(5, 72, 108, 0.67); position: relative;
+}
+#noselet{
+	color: black;
+    width: 100px;
+    border-radius: 0px;
+    border-width: 0px;
+	background: white;
+}
+#selet{
+	color: white;
+    width: 100px;
+    border-radius: 0px;
+    border-width: 0px;
+	background: black;
+}
+#menu{	
+    position: absolute;
+    background: black;
+    min-width: 800px;
+    height: 50px;
+    right: 252px;
+}
