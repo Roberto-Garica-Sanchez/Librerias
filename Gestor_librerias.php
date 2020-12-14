@@ -1,4 +1,5 @@
 <?php
+#Estructura B
 $Gestor_liberias=array(
     "sistemas_cuentas" =>array(
         "annie"=>'',
