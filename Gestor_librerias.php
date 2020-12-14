@@ -1,4 +1,6 @@
 <?php
+#Estructurado A
+
 $Gestor_liberias=array(
     "sistemas_cuentas" =>array(
         "annie"=>'',
