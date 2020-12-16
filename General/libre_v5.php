@@ -87,6 +87,10 @@ class Columna_automaticas{
     public $verificasion_celdas=array(
         "vacios"=>array()
     );
+    public $lista_auto_sumas=array();
+    public $operaciones_math=array(
+        "SumaTotal"=>array()
+    );
     public function __construct($phpv,$conexion,$array){	
         $this->libre_v1	=new libre_v1();	
         $this->libre_v2	=new libre_v2($phpv,$conexion);	
@@ -136,6 +140,7 @@ class Columna_automaticas{
                     "libre"=>''
                 )
             );
+            echo $this->operaciones_math['SumaTotal'][$name]='';
         }
         
     }
@@ -153,6 +158,7 @@ class Columna_automaticas{
         $this-> add_renglon();
         $this-> ordena_renglones();
         $this-> elimina_renglones();
+        $this-> autoSuma();
         if (!empty($this->formato_columna) and(count($this->formato_columna)>=1)){#columnas especificasdas                     
         }else{# todas las columnas 
             
@@ -261,9 +267,24 @@ class Columna_automaticas{
         $id=$name=$this->name_memoria;
         echo$this->libre_v5-> input('hidden',$name,'',$id,'','','','');
     }
-    public function autoSuma($array_auto){
-        $ultimo_renglon=$_POST[$this->name_memoria];
-        for ($i=0; $i<count($this->colunas_index) ; $i++) { #ciclo para recorer todas las columnas 
+    public function contro_lista_autoSuma($array_autoSuma){
+        $this->lista_auto_sumas=$array_autoSuma;
+    }
+    public function autoSuma(){
+        $ultimo_renglon=$_POST[$this->name_memoria];    
+        $total=0;
+        for ($i=0; $i <count($this->lista_auto_sumas) ; $i++) {  
+            for ($d=1; $d <$ultimo_renglon; $d++) { 
+                $celda=$this->lista_auto_sumas[$i].$d;
+                if(is_numeric($_POST[$celda]))$total=$total+$_POST[$celda];
+            }
+            
+            
+            $this->operaciones_math['SumaTotal'][$this->lista_auto_sumas[$i]]=$total;
+            
+        }
+        /*
+        for ($i=0; $i<count($this->$array_auto) ; $i++) { #ciclo para recorer todas las columnas 
             $columnas=$this->colunas_index[$i];
             $celda=$this->colunas_index[$i].$ultimo_renglon;
             if(empty($this->columnas_requerida)){
@@ -277,11 +298,7 @@ class Columna_automaticas{
 
             }
         }
-        if($autorizacion_de_agregar==true){
-            #echo"<br>add<br>";
-            $_POST[$this->name_memoria]=$_POST[$this->name_memoria]+1;
-        }
-
+        */
 
     }
     public function view(){        
@@ -289,7 +306,7 @@ class Columna_automaticas{
         #titulos
         echo"<div style=''>";
             $this->view_memoria();
-            for ($i=0; $i <count($this->colunas_index) ; $i++) { 
+            for ($i=0; $i <count($this->colunas_index) ; $i++) { //columnas 
                 echo"<div style='float: left;     width: min-content;'>";
                     $columna_actual=$this->colunas_index[$i];
                     #title
@@ -301,14 +318,22 @@ class Columna_automaticas{
                             echo $this->libre_v5->inputArray($propiedades);
                         }
                     #Renglones 
-                    echo"<div>";                    
-                        $renglones_de_columna=$_POST[$this->name_memoria];
-                        for ($d=1; $d <=$renglones_de_columna; $d++) {                             
-                            $propiedades= $this->colunas[$columna_actual]['propiedades'];
-                            $propiedades['name']= $columna_actual.$d;
-                            echo $this->libre_v5->inputArray($propiedades);                            
-                        }
-                    echo"</div>";
+                        echo"<div>";                    
+                            $renglones_de_columna=$_POST[$this->name_memoria];
+                            for ($d=1; $d <=$renglones_de_columna; $d++) {                             
+                                $propiedades= $this->colunas[$columna_actual]['propiedades'];
+                                $propiedades['name']= $columna_actual.$d;
+                                echo $this->libre_v5->inputArray($propiedades);                            
+                            }
+                            #auto sumas 
+                            if(!empty($this->operaciones_math['SumaTotal'][$columna_actual])){
+                                $propiedades['name']='';
+                                $propiedades['value']= $this->operaciones_math['SumaTotal'][$columna_actual];
+                                echo $this->libre_v5->inputArray($propiedades);         
+                            }
+                        echo"</div>";
+
+
                 echo"</div>";
             }
         echo"</div>";

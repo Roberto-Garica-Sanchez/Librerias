@@ -16,7 +16,7 @@ switch ($_POST['Soft_version']) {
     case 'Annie':
         switch ($_POST['name_programa']) {
             case 'sistemas_cuentas':
-                echo $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
+                $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
                 include_once("General\CentroDeProcesos.php");
             break;
         }
@@ -24,7 +24,7 @@ switch ($_POST['Soft_version']) {
     case 'Ares':
         switch ($_POST['name_programa']) {
             case 'sistemas_cuentas':
-                echo $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
+                $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
                 include_once("General\CentroDeProcesos.php");
             break;
         }
@@ -32,7 +32,7 @@ switch ($_POST['Soft_version']) {
     case 'Carmesi':
         switch ($_POST['name_programa']) {
             case 'sistemas_cuentas':
-                echo $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
+                $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
                 include_once("General\CentroDeProcesos.php");
             break;
         }
@@ -40,7 +40,7 @@ switch ($_POST['Soft_version']) {
     case 'Celeste':
         switch ($_POST['name_programa']) {
             case 'sistemas_cuentas':
-                echo $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
+                $programa_ejecucion=$_POST['name_programa'].'/'.$_POST['Soft_version'];
                 include_once("General\CentroDeProcesos.php");
             break;
         }
