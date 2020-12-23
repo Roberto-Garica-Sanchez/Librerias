@@ -135,12 +135,16 @@ class Columna_automaticas{
                     "readonly"=>false,#true o false
                     "disabled"=>false,#true o false
                     "title"=>'',
-                    "style"=>'',
+                    "style"=>array(
+                        "width"=>'',
+                        "height"=>'',
+                        "display"=>''
+                    ),
                     "placeholder"=>'',
                     "libre"=>''
                 )
             );
-            echo $this->operaciones_math['SumaTotal'][$name]='';
+            $this->operaciones_math['SumaTotal'][$name]='';
         }
         
     }
@@ -398,9 +402,23 @@ class libre_v5{
         if(empty($propiedades['value']) and !empty($propiedades['name'])and!empty($_POST[$propiedades['name']])){$propiedades['value']=$_POST[$propiedades['name']];}
         if(!empty($propiedades['readonly']) and $propiedades['readonly']=true )$propiedades['readonly']=" readonly='readonly'";else{$propiedades['readonly']='';}
         if(!empty($propiedades['disabled']) and $propiedades['disabled']=true)$propiedades['disabled']=" disabled='disabled'";else{$propiedades['disabled']='';}
+        if(!empty($propiedades['style']) and gettype($propiedades['style'])=='array'){
+            #### conversor de array con keys 
+            #printw array_keys($propiedades['style']);
+            #print_r(array_keys($propiedades['style']));
+            $keys=array_keys($propiedades['style']);
+            #echo count(array_keys($propiedades['style']));
+            $style='';
+            for ($i=0; $i <count($keys) ; $i++) { 
+                $style.= $keys[$i].': '.$propiedades['style'][$keys[$i]].'; ';
+                #echo $keys[$i];
+            }
+            $propiedades['style']= $style;
+        }
+        
         switch ($propiedades['objeto']) {
             case 'input':                
-                $res="<input type='' style='$propiedades[style]' $propiedades[id]  class='$propiedades[class]' name='$propiedades[name]' value='$propiedades[value]' 	title='$propiedades[title]' $propiedades[disabled] $propiedades[readonly] $propiedades[libre] >";
+                $res="<input type='$propiedades[type]' style='$propiedades[style]' $propiedades[id]  class='$propiedades[class]' name='$propiedades[name]' value='$propiedades[value]' 	title='$propiedades[title]' $propiedades[disabled] $propiedades[readonly] $propiedades[libre] >";
             break;
             case 'select':
             break;
