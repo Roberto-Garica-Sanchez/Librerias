@@ -267,12 +267,11 @@
     left: 5px;
     height: 590px;
     width: 1240px;
-    background: #3172b1cc;
-    overflow-y: hidden;
+    background: #3172b1;
+    overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0px 0px 20px 1px black;
-    z-index: 1;
-	transition: 2s;
+    z-index: 2;
 }
 .consola_guarda_mini{
 	position: absolute;
@@ -281,9 +280,58 @@
     height: 205px;
     width: 101px;
     background: #3172b1cc;
-    overflow-y: hidden;
+    overflow-y: auto;
     overflow-x: hidden;
     box-shadow: 0px 0px 20px 1px black;
     z-index: 1;
 	transition: 2s;
+}
+.Contenedor_ajustable6vh{
+    position: relative;
+    height: calc(100% - 6vh);
+    overflow: auto;
+}
+.elementosEnCarpeta{
+    height: 30%;
+    width: 25%;
+    overflow-y: auto;
+    float: left;
+    max-width: 25%;
+    background: #283369;
+    padding: 2px;
+}
+.CarpetaActual{
+    position: relative;
+    background: #292a2d;
+    padding: 5px;
+    border: solid;
+    border-color: #676767;
+}
+.contenedor_archivos{
+    position: relative;
+    float: left;
+    background: #283369;
+    width: 75%;
+    border: solid;
+    height: 20%;
+    overflow-y: auto;
+}
+.precentaArchivo{
+    position: relative;
+    float: left;
+    background: #002646;
+    width: 100%;
+    border: solid;
+    height: 65%;
+    overflow-y: auto;
+}
+.InfoArchivo{
+    position: relative;
+    float: left;
+    background: #292a2d;
+    width: 75%;
+    border: solid;
+    overflow-y: auto;
+    padding: 5px;
+    border-color: #676767;
 }

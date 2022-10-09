@@ -1,0 +1,144 @@
+
+/*tamaños de objetos */
+    .PX_wd_ch{
+        width: 60px;
+    }
+    .PX_wd_med{
+        width: 80px;
+    }
+    .PX_wd_gra{
+        width: 100px;
+    }
+    .PX_wd_gra2{
+        width: 200px;
+    }
+
+    .PX_hg_ch{
+        height: 15px;
+    }
+    .PX_hg_med{
+        height: 18px;
+    }
+    .PX_hg_gra{
+        height: 25px;
+    }
+    .procMaxWid{
+        width: 100%;
+    }
+    .procWid80{
+        width: 80%;
+    }
+    .procHei80{
+        height: 80%;
+    }
+    .vh_20max{
+        max-height: 20vh;
+    }
+    .vw_20{
+        width: 20vw;
+    }
+    .vw_15{
+        width: 15vw;
+    }
+    .vh_20{
+        height: 20vh;
+    }
+    .vh_5{
+        height: 5vh;
+    }
+/*diseños */
+    /*DIV*/
+    /*alin_left design_azul1 dsgn_border_blue_1*/
+    .ajustado_contenedor{
+        position: relative;
+        float: left;
+        width: 100%;
+        min-height: 20%;
+        background: #05486c;
+        border: solid;
+    }
+    
+    /*colores*/
+        .color_transparent{            
+            background: transparent;
+            color: white;
+        }
+        .design{
+            border: 0px;
+            padding: 0px 10px;    
+        }
+        .design_azul1{
+            background: #0f4c70;
+            color: white;
+            border: 0px;
+            padding: 0px 10px;    
+        }
+        .design_azul2{
+            background: #002fdb;
+            color: white;
+            border: 0px;
+            padding: 0px 10px;    
+        }
+        .design_gris{
+            background: #292a2d;
+            color: white;
+            border: 0px;
+            padding: 0px 10px;    
+        }
+        .design_black{
+            background: black;
+            color: white;
+            border: 0px;
+            padding: 0px 10px;
+            
+        }
+    /*alineacion entre elementos*/
+        .alin_left{
+            float: left;
+        }
+    /*bordes*/
+        .dsgn_border_0{
+            border: 0px;
+        }
+        .dsgn_border_blue_1{
+            border: solid 1px cornflowerblue;
+            border-bottom-width: 0px;
+            border-top-width: 0px;
+        }
+        
+        .dsgn_border_blue_1_xy{
+            border: solid .5px  cornflowerblue;
+            border-bottom-width: 0px;
+            
+        }
+    /*hover*/
+        /*colores*/
+        /*.hov_azul_claro{
+            background: royalblue;
+
+        }*/
+        .shadow_azul_claro1:hover{
+            box-shadow: inset 0px 0px 0px 1px blue;
+        }
+        .shadow_yellow_claro1:hover{
+            box-shadow: inset 0px 0px 0px 1px #e2ff00;
+        }
+        /*background*/
+        .back_blue1:hover{
+            background: #267eb1;
+        }
+        .back_gris1:hover{
+            background: #617685;
+        }
+
+    /*Alineacion Texto */
+        .txt_le{
+            text-align: left;
+        }
+        .txt_ce{
+            text-align: center;
+        }
+        .txt_ri{
+            text-align: right;
+        }
+

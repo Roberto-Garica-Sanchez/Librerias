@@ -28,16 +28,17 @@
 			$libre="maxlength='$limite' onkeyup='$if'";
 			return $libre;
 		}
-		function db					($base,$conexion,$phpv)																		{
+		function db					($base,$conexion,$phpv)													{
+			//echo$phpv;
 			//$base  	°base de datos que se decea conectar
 			//$conexion °que entrega la funcion "login"
 			//$php 		°Vesion de php que Ejecuta El Servidor 
-			if ($base=="") 		{echo"[db]Base de Datos No Definida";exit;}		
-			if ($conexion=="") 	{echo"[db]Conecion no existente";exit;}		
-			if ($phpv=="")  	{echo"[db]Version de php no Definidad";exit;}
-			if ($phpv==php5)	{$res=mysql_select_db($base,$conexion)  or die ("[db]Error $base; phpv: $phpv". mysql_error());}
-			if ($phpv==php7)	{$res=mysqli_select_db ($conexion,$base)or die ("[db]Error $base; phpv: $phpv". mysqli_error());}
-			return  $res;
+			if ($base=="") 		{echo"[db]Base de Datos no Definida"; 	}		
+			if ($conexion=="") 	{echo"[db] Conexion no existente";		}		
+			if ($phpv=="")  	{echo"[db]Version de php no Definidad";	}
+			if ($phpv=='php5')	{$res=mysql_select_db($base,$conexion) or die ("[db]Error php5". mysql_error());}
+			if ($phpv=='php7')	{$res=mysqli_select_db($conexion,$base)	or die ("[db]Error php7". mysqli_error($conexion));}
+			return $res;
 		}
 		function login				($host,$user,$pass,$db,$phpv)																{
 			//$user		°usuario con que Se Realica login en la bd
@@ -45,37 +46,37 @@
 			//$conexion °que entrega la funcion "login"
 			//$php 		°Vesion de php que Ejecuta El Servidor 	
 			if ($phpv=="")  	{echo"[lg]version de php no Definidad";}
-			if ($phpv==php5)	{$conexion=mysql_connect($host,$user,$pass)  or die("[Ln]". mysql_error());}
-			if ($phpv==php7)	{$conexion=mysqli_connect($host,$user,$pass,$db) or die("[Ln]". mysqli_error());}
+			if ($phpv=='php5')	{$conexion=mysql_connect($host,$user,$pass)  or die("[Ln]". mysql_error());}
+			if ($phpv=='php7')	{$conexion=mysqli_connect($host,$user,$pass,$db) or die("[Ln]". mysqli_error());}
 			return $conexion;
 		}
 		function ejecuta			($conexion,$res,$phpv)																		{
 			if ($res=="")		{echo"[ejecuta]Sin Res para Ejecutar ";	exit;}
 			if ($conexion=="") 	{echo"[ejecuta]Sin Conexion ".$res;		exit;}
 			if ($phpv=="")		{echo"[ejecuta]Sin Version ".$res;		exit;}
-			if ($phpv==php5) 	{$resu=mysql_query($res,$conexion) or die("\r<br>Error Query php=$phpv\r<br>$res<br>".mysql_error($conexion));}
-			if ($phpv==php7) 	{$resu=mysqli_query($conexion,$res)or die("\r<br>Error Query php=$phpv\r<br>$res<br>".mysqli_error($conexion));}
+			if ($phpv=='php5') 	{$resu=mysql_query($res,$conexion) or die("\r<br>Error Query php=$phpv\r<br>$res<br>".mysql_error($conexion));}
+			if ($phpv=='php7') 	{$resu=mysqli_query($conexion,$res)or die("\r<br>Error Query php=$phpv\r<br>$res<br>".mysqli_error($conexion));}
 			return $resu;
 		}
 		function mysql_da_se		($res,$posicion,$phpv)																		{
 			if ($posicion=="")	{$posicion=0;}
 			if ($res=="")		{echo"[da_se]Sin 'Res' para mysql_da_se";exit;} 
 			if ($phpv=="")  	{echo"[da_se]version de php no Definidad";}
-			if ($phpv==php5)	{mysql_data_seek($res,$posicion);}
-			if ($phpv==php7)	{mysqli_data_seek($res,$posicion);}	
+			if ($phpv=='php5')	{mysql_data_seek($res,$posicion);}
+			if ($phpv=='php7')	{mysqli_data_seek($res,$posicion);}	
 		}
 		function mysql_fe_ar		($res,$phpv)																				{
 			if ($res=="")		{echo"[fe_ar]Sin 'Res' para mysql_fe_ar";exit;}
 			if ($phpv=="")  	{echo"[fe_ar]version de php no Definidad";}
-			if ($phpv==php5) 	{$res=mysql_fetch_array($res);}
-			if ($phpv==php7)	{$res=mysqli_fetch_array($res);}
+			if ($phpv=='php5') 	{$res=mysql_fetch_array($res);}
+			if ($phpv=='php7')	{$res=mysqli_fetch_array($res);}
 			return $res;
 		}
 		function mysql_cl			($conexion,$phpv)																			{	
 			if ($conexion=="") 	{echo"[cl] Conecion no existente";}
 			if ($phpv=="")  	{echo"[cl]version de php no Definidad";}
-			if ($phpv==php5)	{mysql_close($conexion);}
-			if ($phpv==php7)	{mysqli_close($conexion);}
+			if ($phpv=='php5')	{mysql_close($conexion);}
+			if ($phpv=='php7')	{mysqli_close($conexion);}
 		}
 		function input2				($type2,$name,$title,$value,$style,$id,$libre,$class)										{
 			if ($class=='')		$class='Medio';
@@ -89,35 +90,46 @@
 			$consulta="SELECT * FROM ".$tabla;
 			if (($espe<>'') and ($col_espe<>''))					{ $consulta="SELECT * FROM $tabla WHERE $col_espe='$espe'";}
 			if (($espe<>'') and ($col_espe<>'') and ($buscar<>''))	{ $consulta="SELECT * FROM $tabla WHERE $col_espe LIKE  '$espe'";}
-			if ($dire<>'')		$dire=DESC;
-			if ($dire=='')		$dire=ASC;
+			if ($dire<>'')		$dire='DESC';
+			if ($dire=='')		$dire='ASC';
 			if ($orde<>'')		{$consulta=$consulta." ORDER BY $orde $dire";}
 			$res=$consulta;
 			$consu=libre_v1::ejecuta($conexion,$res,$phpv);
 			return $consu;
 		}
 		function compro				($com,$col,$var,$consu,$conexion,$phpv,$todos)												{//Genera lentitud -> estado opsoleto 
-			$d=false;
+			$verifcaion=false;
 			$res=$consu;
-			libre_v1::mysql_da_se($res,$posicion,$phpv);
+			libre_v1::mysql_da_se($res,0,$phpv);
 			while($dato=libre_v1::mysql_fe_ar($res,$phpv)){
-				if ($dato[$col]==$com){$d=true; break;}
+				if ($dato[$col]==$com){$verifcaion=true; break;}
 			}
-			if($var<>'')$d=$dato[$var];
-			if ($todos<>''){$d=$dato;}
-			return $d;
+			/*
+			echo "<".$verifcaion.">";
+			echo $var;
+			echo('<pre>');
+			print_r($dato);
+			echo('</pre>'); 
+			*/
+			if(isset($var) and !empty($var) and $var!='' and $verifcaion)$verifcaion=$dato[$var];
+			if(isset($todos)and !empty($todos) and $verifcaion){$verifcaion=$dato;}
+			return $verifcaion;
 		}
 		function despliegre_mysql	($name,$name2,$consu,$descarga,$phpv,$libre,$className,$dataset,$set)												{
 			$res=$consu;
 			if($className=="")$class="class='Medio'";
 			if($className<>"")$class="class='$className'";
-			$d=$d."<select $class name='$name' $libre>";
+			$d="<select $class name='$name' $libre>";
 			if($name2<>'')$d=$d."<OPTION value='$name'>$name2</OPTION>";
 				libre_v1::mysql_da_se($res,0,$phpv);
 				while($datos= libre_v1::mysql_fe_ar($res,$phpv)){$set='';		
-					if($datos[$descarga]==$_POST[$name]){$set='style="background: #3172b1;" selected';}
+					if(isset($_POST[$name])and $datos[$descarga]==$_POST[$name]){$set='style="background: #3172b1;" selected';}
 					if($dataset<>""){if($datos[$dataset]==$set){$set='style="background: #3172b1;"selected';}}
-					$d=$d."<option value='$datos[$descarga]' $set>$datos[$descarga]</option>";
+					$d=$d."<option value='
+					$datos[$descarga]
+					' $set>
+					$datos[$descarga]
+					</option>";
 				}
 			$d=$d."</select>";
 			return $d;
@@ -132,7 +144,7 @@
 			return $res;
 		}
 		function Presenta1			($type,$type1,$type2,$x,$n1,$n2,$v1,$v2,$n_r1,$n_r2,$title1,$title2,$focus1,$focus2,$max1,$max2,$style1,$style2){
-			if($type<>hidden){
+			if($type<>'hidden'){
 			echo"
 				<tr >
 					<td >$x</td >
@@ -140,31 +152,40 @@
 					<td ><input type='$type2' name='$n2' value='$v2' title='$title2' Class='Medio' $focus2 maxlength='$max2' style='$style2'>	</td >
 				</tr >";
 			}
-			if($type==hidden){echo"<tr ><td>$x</td><td >$name1</td ><td >$name2</td ></tr >";}
+			if($type=='hidden'){echo"<tr ><td>$x</td><td >$name1</td ><td >$name2</td ></tr >";}
 		}
 		function presenta2			($hidden,$name1,$name2,$type,$style,$borra,$consu){
+			if(!isset($_POST[$hidden]))$_POST[$hidden]=1;
 			for($x=1; $x<=$_POST[$hidden]; $x++){
 				$Name1=$name1.$x;
 				$Name2=$name2.$x;
-				if (($_POST[$Name1]=='')and($_POST[$Name2]=='')and($_POST[$hidden]>1)){$_POST[$hidden]=$_POST[$hidden]-1;}
+				#if (($_POST[$Name1]=='')and($_POST[$Name2]=='')and($_POST[$hidden]>1)){$_POST[$hidden]=$_POST[$hidden]-1;}
+				if (
+					empty($_POST[$Name1])and
+					empty($_POST[$Name2])and
+					isset($_POST[$hidden])and 
+					($_POST[$hidden]>1))
+					{$_POST[$hidden]=$_POST[$hidden]-1;}
 			}
+			if (!isset($total)){$total=0;}
+
 			for($x=1; $x<=$_POST[$hidden]; $x++){
 				$y=$x+1;
 				$Name1=$name1.$x;
 				$Name2=$name2.$x;
 				$Name3=$name1.$y;
 				$Name4=$name2.$y;
-				if (($borra<>'')and($_POST[$Name1]==$borra))	{$_POST[$Name1]='';$_POST[$Name2]='';}
+				if (!empty($borra) and($_POST[$Name1]==$borra))	{$_POST[$Name1]='';$_POST[$Name2]='';}
 				if ((($_POST[$Name1]=='')or($_POST[$Name1]=='0'))and($_POST[$Name2]=='')){$_POST[$Name1]=$_POST[$Name3];$_POST[$Name2]=$_POST[$Name4];$_POST[$Name3]='';$_POST[$Name4]='';}
-				echo"<input type='$type' class='Medio' name='$Name1' value='$_POST[$Name1]' style='$style'>
-					 <input type='$type' class='Medio' name='$Name2' value='$_POST[$Name2]' style='$style'>";
-				$total=$total+$_POST[$Name2];
+					echo"<input type='$type' class='Medio' name='$Name1' value='$_POST[$Name1]' style='$style'>
+					<input type='$type' class='Medio' name='$Name2' value='$_POST[$Name2]' style='$style'>";
+				$total=$total+floatval($_POST[$Name2]);
 			}
 			return round($total,2);
 		}
-		function Presenta3			($id,$style,$style_t,$title,$col1,$col2,$t0,$t1,$t2,$repite,$limite,$name1,$name2,$name3,$n_r1,$n_r2,$title1,$title2,$max1,$max2,$style1,$style2,$d1,$d2,$final){
-			if ($col1==''){$col1=Comentarios;}
-			if ($col2==''){$col2=Importe;}
+		function Presenta3			($id,$style,$style_title,$title,$col1,$col2,$t0,$t1,$t2,$repite,$limite,$name1,$name2,$name3,$n_r1,$n_r2,$title1,$title2,$max1,$max2,$style1,$style2,$d1,$d2,$final){
+			if ($col1==''){$col1='Comentarios';}
+			if ($col2==''){$col2='Importe';}
 			echo"<table id='$id' style='$style'>";
 			echo"
 				<tr style='$style_t'><td colspan='3'><center>$title</center></td></tr>
@@ -183,9 +204,9 @@
 				if (($_POST[$n2]=='')and($repite==$x))						{$libre2="autofocus";}
 				$c1=input2($t1,$n1,$title1,$v1,$style1,$d1,$libre1);
 				$c2=input2($t2,$n2,$title2,$v2,$style2,$d2,$libre2);
-				if ($t0=='')$t0=hidden;
-				if (($t0==hidden)and($t1==hidden))	{$c1=$c1.input2(button,'','',$v1,'text-align: left;');}
-				if (($t0==hidden)and($t2==hidden))	{$c2=$c2.input2(button,'','',$v2,'text-align: left;');}
+				if ($t0=='')$t0='hidden';
+				if (($t0=='hidden')and($t1=='hidden'))	{$c1=$c1.input2('button','','',$v1,'text-align: left;');}
+				if (($t0=='hidden')and($t2=='hidden'))	{$c2=$c2.input2('button','','',$v2,'text-align: left;');}
 				$t=$t+$_POST[$n2];
 				print"<tr><td>$x</td><td>$c1</td><td>$c2</td></tr>";
 			}
@@ -327,6 +348,7 @@
 			$d9=$id_def;
 			$d10=$id_def;
 			$d11=$id_def;
+			if(!isset($_POST[$name]))$_POST[$name]=$v1;
 			if($_POST[$name]==$v1){$d1=$id_sel;}
 			if($_POST[$name]==$v2){$d2=$id_sel;}
 			if($_POST[$name]==$v3){$d3=$id_sel;}
@@ -338,19 +360,18 @@
 			if($_POST[$name]==$v9){$d9=$id_sel;}
 			if($_POST[$name]==$v10){$d10=$id_sel;}
 			if($_POST[$name]==$v11){$d10=$id_sel;}
-			$conte=	libre_v1::input2(hidden,$name,'',$_POST[$name]);
-											//($type2,$name,$title,$value,$style,$id,$libre,$class)
-			if($v1<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v1,"",$d1 ,''.$script_input,' ');
-			if($v2<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v2,"",$d2 ,''.$script_input,' ');
-			if($v3<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v3,"",$d3 ,''.$script_input,' ');
-			if($v4<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v4,"",$d4 ,''.$script_input,' ');
-			if($v5<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v5,"",$d5 ,''.$script_input,' ');
-			if($v6<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v6,"",$d6 ,''.$script_input,' ');
-			if($v7<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v7,"",$d7 ,''.$script_input,' ');
-			if($v8<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v8,"",$d8 ,''.$script_input,' ');
-			if($v9<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v9,"",$d9 ,''.$script_input,' ');
-			if($v10<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v10,"",$d10);
-			if($v11<>'')$conte=$conte.	libre_v1::input2(button,$name,'',$v11,"",$d11);
+			$conte=	libre_v1::input2('hidden',$name,'',$_POST[$name],'','','','');
+			if($v1<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v1,"",$d1 ,''.$script_input,' ');
+			if($v2<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v2,"",$d2 ,''.$script_input,' ');
+			if($v3<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v3,"",$d3 ,''.$script_input,' ');
+			if($v4<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v4,"",$d4 ,''.$script_input,' ');
+			if($v5<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v5,"",$d5 ,''.$script_input,' ');
+			if($v6<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v6,"",$d6 ,''.$script_input,' ');
+			if($v7<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v7,"",$d7 ,''.$script_input,' ');
+			if($v8<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v8,"",$d8 ,''.$script_input,' ');
+			if($v9<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v9,"",$d9 ,''.$script_input,' ');
+			if($v10<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v10,"",$d10);
+			if($v11<>'')$conte=$conte.	libre_v1::input2('button',$name,'',$v11,"",$d11);
 			$res=	libre_v1::div($style,$libre,$conte);
 			return $res;
 		}
@@ -499,11 +520,11 @@
 					if ($array_mysql[$x]<>"")	$array_name[$x]=$array_mysql[$x];
 					if ($array_value[$x]=="")	$array_value[$x]=$_POST[$array_name[$x]];
 					
-					if (($array_type[$x]==text)||($array_type[$x]==hidden)||($array_type[$x]==button)){	$d=input2(hidden,$array_name[$x],$array_title[$x],$array_value[$x],$array_style[$x],$array_id[$x],$array_libre[$x],$array_class[$x]).input2($array_type[$x],$array_name[$x],$array_title[$x],$array_value[$x],$array_style[$x],$array_id[$x],$array_libre[$x],$array_class[$x]);	}
-					if ($array_type[$x]==textarea)	{														$d="<textarea name='$array_name[$x]' title='$array_title[$x]' style='$array_style[$x]' id='$array_id[$x]' class='$array_class[$x]' $array_libre[$x]>$array_value[$x]</textarea>";	}
-					if ($array_type[$x]==Estatus)	{				$d=objeto::Estatus('',ver);}
-					if ($array_type[$x]==Fecha_re)	{				$d=objeto::Fecha_re();}
-					if ($array_type[$x]==N_Fact)	{				$d=objeto::N_Fact();}
+					if (($array_type[$x]=='text')||($array_type[$x]=='hidden')||($array_type[$x]=='button')){	$d=input2('hidden',$array_name[$x],$array_title[$x],$array_value[$x],$array_style[$x],$array_id[$x],$array_libre[$x],$array_class[$x]).input2($array_type[$x],$array_name[$x],$array_title[$x],$array_value[$x],$array_style[$x],$array_id[$x],$array_libre[$x],$array_class[$x]);	}
+					if ($array_type[$x]=='textarea')	{														$d="<textarea name='$array_name[$x]' title='$array_title[$x]' style='$array_style[$x]' id='$array_id[$x]' class='$array_class[$x]' $array_libre[$x]>$array_value[$x]</textarea>";	}
+					if ($array_type[$x]=='Estatus')	{				$d=objeto::Estatus('','ver');}
+					if ($array_type[$x]=='Fecha_re')	{				$d=objeto::Fecha_re();}
+					if ($array_type[$x]=='N_Fact')	{				$d=objeto::N_Fact();}
 					
 					$res=$res."<tr><td>$i</td><td>$d</td></tr>";
 				}
@@ -538,7 +559,7 @@
 			$sub_style	="position: absolute; top: 2px; bottom: 2px; left: 2px; right: 2px; color: white; overflow: auto; background: #292a2d;";
 			$libre="id='res$name' ";
 			$conte		=$conte.libre_v1::div			($sub_style,$libre,$contenido);
-			$conte=$conte.libre_v1::input2(button,$name,'',$actuador	,'position: absolute; right: 5px; width: 20px;',"act".$name,"onclick='windows($name);'");//,'onclick="windows(this);"'
+			$conte=$conte.libre_v1::input2('button',$name,'',$actuador	,'position: absolute; right: 5px; width: 20px;',"act".$name,"onclick='windows($name);'");//,'onclick="windows(this);"'
 			
 			$libre="id='$name' class='$class'";
 			$res		=libre_v1::div					($style,$libre,$conte);
@@ -1009,11 +1030,11 @@
 						$buscar		=	1;
 						$consu=consulta($tabla,$conexion,$col_espe,$espe,$orde,$dire,$phpv,$buscar);
 						$dato=mysql_fe_ar($consu,$phpv);
-						if(($dato[$array_mysql[0]]<>"")and($_POST[operador]==Actualizar))$array_type[0]=button;
+						if(($dato[$array_mysql[0]]<>"")and($_POST[operador]==Actualizar))$array_type[0]='button';
 						if(($dato[$array_mysql[0]]<>"")and($_POST[operador]<>Actualizar)){
 							for($x=0; $x<$conta; $x++){
 								$_POST[$array_name[$x]]=$dato[$array_mysql[$x]];
-								$array_type[$x]=button;
+								$array_type[$x]='button';
 							}
 						}
 					}
@@ -1082,7 +1103,7 @@
 					mysql_da_se($consu,0,$phpv);
 					$conte="<table><tr>";
 					for($x=0; $x<$conta; $x++){
-						$d=input2(button,$array_text[$x],"",$array_text[$x]);				
+						$d=input2('button',$array_text[$x],"",$array_text[$x]);				
 						$conte=$conte."<td>$d</td>";
 					}
 					$conte=$conte."</tr>";
@@ -1094,7 +1115,7 @@
 								$Est=objeto::Estatus		($dato[$array_mysql[$x]],Identi);
 							}
 
-							$d=input2(button,$array_mysql[$x],"",$dato[$array_mysql[$x]]);
+							$d=input2('button',$array_mysql[$x],"",$dato[$array_mysql[$x]]);
 							if($array_type[$x]==textarea){$d="<textarea name='$array_name[$x]' title='$array_title[$x]' style='$array_style[$x]' id='$array_id[$x]' class='$array_class[$x]' $array_libre[$x]>$array_value[$x]</textarea>";}
 							
 							$c=$c."<td>$d</td>";
@@ -1177,13 +1198,13 @@
 				function Fecha_re		(){
 					if($_POST[Fecha_re]=="")$_POST[Fecha_re]=date("d/m/Y");
 					$res=		input2(hidden,Fecha_re,"",$_POST[Fecha_re]);
-					$res=$res.	input2(button,Fecha_re,"",$_POST[Fecha_re]);
+					$res=$res.	input2('button',Fecha_re,"",$_POST[Fecha_re]);
 					return $res;
 				}
 				function N_Fact			(){
 					if($_POST[N_Fact]=="")$_POST[N_Fact]=0;
 					$res=		input2(hidden,N_Fact,"",$_POST[N_Fact]);
-					$res=$res.	input2(button,N_Fact,"",$_POST[N_Fact]);
+					$res=$res.	input2('button',N_Fact,"",$_POST[N_Fact]);
 					return $res;
 				}
 				function Lista_mysql	($base,$tabla,$conexion,$phpv,$array,$col,$style){

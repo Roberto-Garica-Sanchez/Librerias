@@ -333,7 +333,8 @@ function ElemMaysPrim(elemento)		{
 	
 }
 function mueveReloj()				{ 
-	
+	/*
+	console.log('carga reloj');
 	var fecha	=document.getElementById("fecha");	
 	var idia	=document.getElementById("idia");	
 	var imes	=document.getElementById("imes");	
@@ -364,7 +365,9 @@ function mueveReloj()				{
 	ihora.value=hora;
 	imin.value=minuto;
 	reloj.value = horaImprimible; 
-
+	*/	
+	var momentoActual = new Date();
+	console.log(momentoActual);
    	setTimeout("mueveReloj()",1000); 
 } 
 function login()					{
@@ -905,7 +908,10 @@ function descarga_datos_reporte(elemento){
 
 //codigo de uso general
 function envia_formulario()	{
-	formu1.submit();
+	if(document.getElementById("formu1"))formu1.submit();
+	else{
+		document.forms[0].submit();
+	}
 }
 
 //compatible para cuentas annie 

@@ -118,6 +118,22 @@ function ventanas2			(elemento){
 	if(elemento.className==name1)		{elemento.className=name2;}
 	
 }
+function OcultarDIV(elemento){
+	var Div		=document.getElementById(elemento.name);
+	var Div_memo=document.getElementById("style_"+elemento.name);
+	//console.log("style_"+elemento.name);
+	//console.log(Div_memo);
+
+	//elemento.
+	if(Div.style.display == '' || Div.style.display == 'none'){
+		Div.style.display	= 'block';
+		Div_memo.value		= 'block';
+	}else{
+		Div.style.display 	= 'none';
+		Div_memo.value		= 'none';
+	} 
+	//console.log(Div);
+}
 function crearAjax			(){
    var objetoAjax=false;
    if(navigator.appName=="Microsoft Internet Explorer")
@@ -387,7 +403,7 @@ function cambia				(elemento)  {
 	if(elemento.name=='mysql')						{setTimeout("location.href='mysql'", 80);}
 }
 function revi				(){
-	var cam=document.getElementById("Revisado");Revisado
+	var cam=document.getElementById("Revisado");//Revisado
 	var rev=document.getElementById("CambRevi");
 	if(rev.value=='Pendiente')	{rev.value="Revisado"; }else
 	if(rev.value=='Revisado')	{rev.value="Pendiente";}

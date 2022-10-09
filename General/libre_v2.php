@@ -1,4 +1,23 @@
 <?php
+/*
+contraseñas correo
+ramongm ->  AScH4UD8V134
+admin -> k9pkMkuYvy
+administracion -> 2t1N#uD527b
+alma -> 7X@(CWZBZ9k$
+angeles -> H?%kefLvGt4&
+brenda -> OW_dQYseQ(%3
+contabilidad-> TXk?}pSRZxeI
+contacto.sat ->KP}Dy2QXcOjA
+francisco->KiJMGhOC9b}+
+gerencia->9_hcSiaIspAU
+logistica->Q?F!6X9qxgXe
+operaciones->trmu;z?qPT6B
+ramon->pBZgm&Wfrsmh
+ramongm->4rJ{G0O69a#0
+seguimiento.contrataciones->OqBQgORVksL7
+tere->Hl67Zma8BGmR
+ */
 /* 
 	SELECT ID_G FROM empresa.folio  
 	JOIN empresa.viaticos_c ON folio.ID_G=viaticos_c.ID_G 
@@ -309,15 +328,21 @@ class Ares_v1{
 				"tabla"=>$tabla,
 				"Operacion"=>
 				array(  
-						'INSERT'=>array(
+					'viewSQL'=>'',
+					'INSERT'=>array(
 						"Activar"    =>'true',//'false'
 						"ValoresByKey"		=>$ValoresByKey,
 						"ColumnasInsert"    =>$ColumnasInsert,//array(),
 						"ValoresInsert"     =>$ValoresInsert, //array(),
-						"Excepcion"			=>$Excepcion
-					),      'SELECT'=>array(
-						"Activar"	=>'true',
-						"LIKE"		=>'falses',
+						"Excepcion"			=>$Excepcion,
+						"Sustituto"			=>$Sustituto,
+					),      
+					'SELECT'=>array(
+						"Activar"		=>'true',
+						"LIKE"			=>'falses',
+						"LOWER"			=>'falses',
+						"UPPER"			=>'falses',
+						"%"				=>'false',
 						"getColumnas"	=>$getColumnas,
 						"BuscaColumnas"	=>$BuscaColumnas,
 						"BuscaDatos"	=>$BuscaDatos,
@@ -345,41 +370,49 @@ class Ares_v1{
 
 						)
 
-					),      'UPDATE'=>array(
+					),      
+					'UPDATE'=>array(
 						"Activar"	=>'true',//'false'
-						"LIKE"		=>'true',//'false'
+						"LIKE"			=>'falses',
+						"LOWER"			=>'falses',
+						"UPPER"			=>'falses',
 						"ModifiColumnas"    =>$getColumnas,//array()
 						"ModifiDatos"    	=>$ModifiDatos,//array()
 						"BuscaColumnas"  	=>$BuscaColumnas,//array()
 						"BuscaDatos"     	=>$BuscaDatos,//array()
 						"Condiciones"  		=>$Condiciones,
 						"Excepcion"			=>$Excepcion
-					),      'DELETE'=>array(
+					),      
+					'DELETE'=>array(
 						"Activar"	=>'true',//'false'
-						"LIKE"		=>'true',//'false'
+						"LIKE"			=>'falses',
+						"LOWER"			=>'falses',
+						"UPPER"			=>'falses',
 						"BuscaColumnas"  	=>$BuscaColumnas,//array()
 						"BuscaDatos"     	=>$BuscaDatos,//array()
 						"Condiciones"   =>$Condiciones
 					)
 				)
 			);
-		*/	
+		*/
+		 	
 		if(!empty($array['Operacion']['INSERT']['Activar']) and $array['Operacion']['INSERT']['Activar']=='true'){
+			
 			$datos=$array['Operacion']['INSERT'];
 			if(empty($datos['ValoresByKey']))$datos['ValoresByKey']='false';
 			if($datos['ValoresByKey']=='false')
-			if(count($datos['ColumnasInsert'])!=count($datos['ValoresInsert'])){
-				echo"Error tamaño de columnas-datos diferente".count($datos['ColumnasInsert'])." to ".count($datos['ValoresInsert']); exit;
-			}
+				if(count($datos['ColumnasInsert'])!=count($datos['ValoresInsert'])){
+					echo"Error tamaño de columnas-datos diferente".count($datos['ColumnasInsert'])." to ".count($datos['ValoresInsert']); exit;
+				}
 			if(gettype($datos['ColumnasInsert'])=='array'){			
 				$DatosDeCiclo="";				
 				for ($x=0; $x<count($datos['ColumnasInsert']); $x++) { 
 					$Excepcion=false;
 					#verificasion de excesiones 
-					if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
-					for ($z=0; $z < count($datos['Excepcion']); $z++) { 
-						if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}
-					}
+						if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
+						for ($z=0; $z < count($datos['Excepcion']); $z++) { 
+							if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}
+						}
 					#procesado de datos despues de las exceiones 
 					if($Excepcion==false){
 						$DatosDeCiclo=$DatosDeCiclo.$datos['ColumnasInsert'][$x];
@@ -391,55 +424,63 @@ class Ares_v1{
 			
 			if(empty($datos['ValoresByKey']))$datos['ValoresByKey']='false';
 			if(!empty($datos['ValoresByKey']))
-			switch ($datos['ValoresByKey']) {
-				case 'true':
-					if(gettype($datos['ValoresInsert'])=='array'){#verifica si los datos viene en un array
-						$DatosDeCiclo="";
-						for ($x=0; $x<count($datos['ColumnasInsert']); $x++) { 
-							$Excepcion=false;
-							#verificasion de excesiones 
-							if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
-							for ($z=0; $z < count($datos['Excepcion']); $z++) { 
-								if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}
+				switch ($datos['ValoresByKey']) {
+					case 'true':
+						if(gettype($datos['ValoresInsert'])=='array'){#verifica si los datos viene en un array
+							$DatosDeCiclo="";
+							for ($x=0; $x<count($datos['ColumnasInsert']); $x++) { 
+								$Excepcion=false;
+								#verificasion de excesiones 
+									if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
+									for ($z=0; $z < count($datos['Excepcion']); $z++) { 
+										if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}
+									}
+								#procesado de datos despues de las excesiones 
+									if($Excepcion==false){
+										$Columna=$datos['ColumnasInsert'][$x];
+										if(!empty($datos['ValoresInsert'][$Columna])){#si el valor para la columna existe 
+											$DatosDeCiclo=$DatosDeCiclo."'".$datos['ValoresInsert'][$Columna]."'";
+										}else{
+											$DatosDeCiclo=$DatosDeCiclo."''";
+										}
+										if(($x+1)<count($datos['ColumnasInsert']))$DatosDeCiclo=$DatosDeCiclo.",";	
+									}
 							}
-							#procesado de datos despues de las excesiones 
-							if($Excepcion==false){
-								$Columna=$datos['ColumnasInsert'][$x];
-								if(!empty($datos['ValoresInsert'][$Columna])){#si el valor para la columna existe 
-									$DatosDeCiclo=$DatosDeCiclo."'".$datos['ValoresInsert'][$Columna]."'";
-								}else{
-									$DatosDeCiclo=$DatosDeCiclo."''";
-								}
-								if(($x+1)<count($datos['ColumnasInsert']))$DatosDeCiclo=$DatosDeCiclo.",";	
-							}
-						}
-						$ValoresInsert=$DatosDeCiclo;
+							$ValoresInsert=$DatosDeCiclo;
 
-					}
-					
-				break;
-				case 'false':
-					if(gettype($datos['ValoresInsert'])=='array'){#verifica si los datos viene en un array				
-						$DatosDeCiclo="";
-						for ($x=0; $x<count($datos['ValoresInsert']); $x++) {#Ciclo para extraer los datos ingresados 			
-							$Excepcion=false;
-							# verificasion si existe una exceion
-							if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
-							for ($z=0; $z < count($datos['Excepcion']); $z++) { #ciclo para extraer las exceiones
-								if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}	#compara el datos actual con las execiones 
-							}
-							#prosesado de datos depues de la excesiones 
-							if($Excepcion==false){
-								$DatosDeCiclo=$DatosDeCiclo."'".$datos['ValoresInsert'][$x]."'";
-								if(($x+1)<count($datos['ValoresInsert']))$DatosDeCiclo=$DatosDeCiclo.",";
-							}
 						}
-						$ValoresInsert=$DatosDeCiclo;
-					}
+						
+					break;
+					case 'false':
+						
+						if(gettype($datos['ValoresInsert'])=='array'){#verifica si los datos viene en un array				
+							$DatosDeCiclo="";
+							for ($x=0; $x<count($datos['ValoresInsert']); $x++) {#Ciclo para extraer los datos ingresados 			
+								$Excepcion=false;
+								# verificasion si existe una exceion
+									if(!empty($datos['Excepcion']) and gettype($datos['Excepcion'])=='array')
+									for ($z=0; $z < count($datos['Excepcion']); $z++) { #ciclo para extraer las exceiones
+										if($datos['Excepcion'][$z]==$datos['ColumnasInsert'][$x]){$Excepcion=true;break;}	#compara el datos actual con las execiones 
+									}
+								#prosesado de datos depues de la excesiones 
+									if($Excepcion==false){
+										$Columna=$datos['ColumnasInsert'][$x];
+										if(array_keys($datos['ValoresInsert'])>0 and isset($datos['ValoresInsert'][$Columna])){
+											$DatosDeCiclo=$DatosDeCiclo."'".$datos['ValoresInsert'][$Columna]."'";
+
+										}else{
+											$DatosDeCiclo=$DatosDeCiclo."'".$datos['ValoresInsert'][$x]."'";
+											
+										}
+										if(($x+1)<count($datos['ValoresInsert']))$DatosDeCiclo=$DatosDeCiclo.",";
+									}
+							}
+							$ValoresInsert=$DatosDeCiclo;
+						}
+						
+					break;
 					
-				break;
-				
-			}
+				}
 			$sql="INSERT INTO ".$array['tabla']." (".$ColumnasInsert.") VALUES (".$ValoresInsert.")";
 			$this->sql=$sql;
 		}		
@@ -464,26 +505,53 @@ class Ares_v1{
 								if(count($datos['BuscaColumnas'])!=count($datos['BuscaDatos'])){
 									echo"Error tamaño de columnas-datos diferente";
 								}
+								if(isset($datos["%"])){$busporce="%";}else{$busporce="";}
 								for ($x=0; $x<count($datos['BuscaColumnas']); $x++) {
 										
-									$DatosDeCiclo=$DatosDeCiclo." ".$datos['BuscaColumnas'][$x];
+									####Columna(s) en las que se buscara 
+										if(isset($datos['LOWER']) and $datos['LOWER']=='true'){									
+											$DatosDeCiclo=$DatosDeCiclo." LOWER(".$array['tabla'].'.'.$datos['BuscaColumnas'][$x].")";
+
+										}else				
+										if(isset($datos['UPPER']) and $datos['UPPER']=='true'){								
+											$DatosDeCiclo=$DatosDeCiclo." UPPER(".$array['tabla'].'.'.$datos['BuscaColumnas'][$x].")";
+												
+										}else{																
+											$DatosDeCiclo=$DatosDeCiclo." ".$array['tabla'].'.'.$datos['BuscaColumnas'][$x];
+										}
+										
+									#### Valores que se Buscan 
 									if(!empty($datos['Condiciones'][$x])){
 										$DatosDeCiclo=$DatosDeCiclo." ".$datos['Condiciones'][$x]." ";
 									}else{
-										if($datos['LIKE']=='true')$DatosDeCiclo=$DatosDeCiclo." LIKE "; else $DatosDeCiclo=$DatosDeCiclo." = ";
+										#### LIKE
+										if(isset($datos['LIKE']) and $datos['LIKE']=='true'){
+											$DatosDeCiclo=$DatosDeCiclo." LIKE ";
+										}else{ 
+											$DatosDeCiclo=$DatosDeCiclo." = ";
+										}
 									}							
-									$DatosDeCiclo=$DatosDeCiclo." '".$datos['BuscaDatos'][$x]."'";
+									if(isset($datos['LOWER']) and $datos['LOWER']=='true'){
+										$DatosDeCiclo=$DatosDeCiclo." LOWER('".$busporce.$datos['BuscaDatos'][$x].$busporce."')";
+
+									}else				
+									if(isset($datos['UPPER']) and $datos['UPPER']=='true'){
+										$DatosDeCiclo=$DatosDeCiclo." UPPER('".$busporce.$datos['BuscaDatos'][$x].$busporce."')";
+											
+									}else{										
+									$DatosDeCiclo=$DatosDeCiclo." '".$busporce.$datos['BuscaDatos'][$x].$busporce."'";
+									}
 									#compueba si existe otra parametro de busqueda y agrega el conector AND OR 
 										if(($x+1)<count($datos['BuscaColumnas'])){
 											if($datos['LIKE']=='true')$DatosDeCiclo=$DatosDeCiclo." or "; else $DatosDeCiclo=$DatosDeCiclo." and ";
 										}
 								}
 								$Condiciones=$DatosDeCiclo;
-						}						
+						}		
 						if(count($datos['BuscaColumnas'])>0)$Condiciones=" WHERE ".$Condiciones;
 				}	
 			#Genera las Condiciones de ordenado de datos 		
-				if(!empty($datos['ByOrder']) and !empty($datos['ByOrder']['Columna'])){
+				if(isset($datos['ByOrder']) and !empty($datos['ByOrder']['Columna'])){
 					$Condiciones=$Condiciones." Order By ".$datos['ByOrder']['Columna'].' '.$datos['ByOrder']['ASC-DESC'];
 				}
 			#LIMIT Genera Control de datos 
@@ -494,12 +562,25 @@ class Ares_v1{
 					}
 				}
 			#JOIN Codigo para tablas combinadas
+				
 				$vinculo_tablas='';
 				if(!empty($datos['JOIN'])){
 					
-					if(!empty($datos['JOIN']['Inner Join'])){
+					if(isset($datos['JOIN']['Inner Join']['vinculos']['0'])){
+						$datos_JOIN=$datos['JOIN']['Inner Join']; 
+						for ($i=0; $i <count($datos_JOIN['vinculos']) ; $i++) { 
+							#echo('<pre>');
+							#print_r($datos_JOIN['vinculos']);
+							#echo('</pre>'); 
+							$vinculo_actual=$datos_JOIN['vinculos'][$i];
+							$vinculo_tablas.=" INNER JOIN ".$vinculo_actual['database'].'.'.$vinculo_actual['tabla'].' ON '.$vinculo_actual['database'].'.'.$vinculo_actual['tabla'].'.'.$vinculo_actual['columna'].' = '.$array['tabla'].'.'.$datos_JOIN['ColumnaUnion'];
+						}
+					}
+					
+					if(isset($datos['JOIN']['Inner Join']['vinculos']['tabla'])){
 						$columnaUnion	=$datos['JOIN']['Inner Join']['ColumnaUnion'];
 						$vinculo		=$datos['JOIN']['Inner Join']['vinculos'];
+						#echo count($vinculo['tabla']);
 						for ($i=0; $i <count($vinculo['tabla']); $i++) { 
 							$vinculo_tablas.=" INNER JOIN ";
 							$vinculo_tablas.=$vinculo['tabla'][$i];
@@ -511,6 +592,7 @@ class Ares_v1{
 							#repostajes_tanques ON
 							#repostajes_tanques.IDTanque =repostajes_unidades.TanqueSurtidor
 						}
+						
 					}
 					#if(!empty($datos['JOIN']['Left outer Join']))
 					#if(!empty($datos['JOIN']['Right outer Join']))
@@ -532,10 +614,17 @@ class Ares_v1{
 					for ($z=0; $z < count($datos['Excepcion']); $z++) { 
 						if($datos['Excepcion'][$z]==$datos['ModifiColumnas'][$x]){$Excepcion=true;break;}
 					}
+					#echo('<pre>');
+					#print_r($datos['ModifiDatos']);
+					#echo('</pre>'); 
 					if($Excepcion==false){
 						$DatosDeCiclo=$DatosDeCiclo." ".$datos['ModifiColumnas'][$x];
 						$DatosDeCiclo=$DatosDeCiclo." = ";
-						$DatosDeCiclo=$DatosDeCiclo." '".$datos['ModifiDatos'][$x]."'";
+						if(array_keys($datos['ModifiDatos'])>0 and isset($datos['ModifiDatos'][$datos['ModifiColumnas'][$x]])){
+							$DatosDeCiclo=$DatosDeCiclo." '".$datos['ModifiDatos'][$datos['ModifiColumnas'][$x]]."'";
+						}else{
+							$DatosDeCiclo=$DatosDeCiclo." '".$datos['ModifiDatos'][$x]."'";
+						}
 						if(($x+1)<count($datos['ModifiColumnas']))$DatosDeCiclo=$DatosDeCiclo.",";
 					}
 				}
@@ -563,11 +652,12 @@ class Ares_v1{
 			$this->sql=$sql;
 		}
 		if(!empty($array['Operacion']['DELETE']['Activar']) and $array['Operacion']['DELETE']['Activar']=='true'){			
+
 			$Condiciones='';
 			$datos=$array['Operacion']['DELETE'];
 			if(gettype($datos['BuscaColumnas'])=='array'){
 				$DatosDeCiclo="";	
-				if(count($datos['BuscaColumnas'])==0){echo"Datos Invalidos ['UPDATE'][WHERE]";exit;}
+				if(count($datos['BuscaColumnas'])==0){echo"Datos Invalidos ['DELETE'][WHERE]";exit;}
 				if(count($datos['BuscaColumnas'])!=count($datos['BuscaDatos'])){
 					echo"Error tamaño de columnas-datos diferente";
 				}
@@ -581,9 +671,27 @@ class Ares_v1{
 				}
 				$Condiciones=$DatosDeCiclo;
 			}	
+			if(gettype($datos['BuscaColumnas'])=='string'){
+				echo "escribe EL Codigo >:'V [engin Sql]";
+			}
 			$Condiciones=" WHERE ".$Condiciones;
 			$sql="DELETE FROM ".$array['tabla']." ".$Condiciones;
 			$this->sql=$sql;
+		}
+		
+			#echo('<pre>');
+			#print_r($array['Operacion']['viewSQL']);
+			#echo('</pre>'); 
+		if(isset($array['Operacion']['viewSQL']) and $array['Operacion']['viewSQL']=='true'){
+			$this->viewSql();
+			
+			#echo('<pre>');
+			#print_r($array);
+			#echo('</pre>'); 
+			/*
+			echo('<pre>');
+			print_r($datos);
+			echo('</pre>'); */
 		}
 		/*Base Diseño*/
 		//$sql= "INSERT INTO repostajes (Fecha,Placas) VALUES ('".$_POST['Fecha']."','".$_POST['Placas']."')";
@@ -603,7 +711,10 @@ class Ares_v1{
 class libre_v2	{		
 	private $libre_v1;
 	private $phpv;
-	private $conexion;
+	public 	$conexion;
+	public 	$SQL;
+	public  $Repuesta_SQL;
+	public 	$Datos_SQL;
 	
 	public function __construct($phpv,$conexion){	
 		$this->libre_v1	=new libre_v1();	
@@ -659,6 +770,41 @@ class libre_v2	{
 		if ($phpv=='php7') 	{$resu=mysqli_query($conexion,$res)or die("\r<br>Error De Query php=$phpv\r<br>$res<br>".mysqli_error($conexion));}
 		return $resu;
 	}
+	function ejecutar_SQL		($conexion)	{
+		$this->conexion=$conexion;
+		if (empty($this->SQL))			{echo" Libre_v2::ejecutar Falta SQL ";	exit;}
+		if ($this->phpv=='php5') 	{$this->Repuesta_SQL=mysql_query($this->SQL,$this->conexion) or die("\r<br>Error Operacion SQL \r<br>".mysql_error($this->conexion));}
+		if ($this->phpv=='php7') 	{$this->Repuesta_SQL=mysqli_query($this->conexion,$this->SQL)or die("\r<br>Error Operacion SQL \r<br>".mysqli_error($this->conexion));}
+		
+	}
+	public function GetRepuesta_SQL(){
+		return $this->Repuesta_SQL;
+	}
+	public function ViewRepuesta_SQL(){		
+		echo('<pre>');
+		print_r($this->Repuesta_SQL);
+		echo('</pre>'); 
+
+		while ($fila = $this->Repuesta_SQL->fetch_row()) {
+			printf ("%s (%s)\n", $fila[0], $fila[1]);
+		}
+	}
+	public function data_seek_SQL($posicion){
+		
+		if ($this->phpv=='php5')	{mysql_data_seek($this->Repuesta_SQL,$posicion);}
+		if ($this->phpv=='php7')	{mysqli_data_seek($this->Repuesta_SQ,$posicion);}	
+	}
+	public function fetch_array_SQL(){
+
+		if ($this->phpv=='php5') 	{$this->Datos_SQL=mysql_fetch_array($this->Repuesta_SQL);}
+		if ($this->phpv=='php7')	{$this->Datos_SQL=mysqli_fetch_array($this->Repuesta_SQL);}
+		return $this->Datos_SQL;
+	}
+	public function GetDatos_SQL(){
+		return $this->Datos_SQL;
+	}
+
+	
 	function mysql_da_se		($res,$posicion,$phpv)													{
 		if ($posicion=="")	{$posicion=0;}
 		if ($res=="")		{echo"[da_se]Sin 'Res' para mysql_da_se";exit;} 
@@ -688,12 +834,14 @@ class libre_v2	{
 	}
 	function input2				($type2,$name,$title,$value,$style,$id,$libre,$class)										{
 		if ($class=='')		$class='Medio';
-		if(!empty($id)){$id="id='$id'";}
-        #asigna el valor directamente desde el post
+		#if(!empty($id)){$id="id='$id'";}
+		if(empty($id))$id=$name;
+		$id="id='$id'";        
+		#asigna el valor directamente desde el post
         if(empty($value) and !empty($name)and!empty($_POST[$name])){$value=$_POST[$name];}
-		$d="<input type='$type2' 			style='$style' $id class='$class' name='$name' value='$value' 	title='$title' ".$libre."0 >";
-		if($type2=='label')$d="<label 		style='$style' $id class='$class' name='$name' 				title='$title' $libre >$value</label>";
-		if($type2=='tarea')$d="<textarea 	style='$style' $id class='$class' name='$name'					title='$title' $libre >$value</textarea>";
+		$d="<input type='$type2' 			style='$style' $id class='$class' name='$name' value='$value' 	title='$title' ".$libre." >";
+		if($type2=='label')$d="<label 		style='$style' $id class='$class' name='$name' value='$value'	title='$title' $libre >$value</label>";
+		if($type2=='tarea')$d="<textarea 	style='$style' $id class='$class' name='$name' value='$value'	title='$title' $libre >$value</textarea>";
 		return $d;
 	}	
 	function input3				($array,$index,$operador,$type,$style,$class,$title,$holder,$libre,$disabled){
@@ -783,7 +931,7 @@ class libre_v2	{
 			$this->mysql_da_se		($consu,0,$phpv);
 			while($datos= $this->mysql_fe_ar($consu,$phpv,'')){
 				$set='';	
-				if(! empty($_POST[$name]) and  $_POST[$name]==$datos[$descarga]){
+				if(!empty($_POST[$name]) and  $_POST[$name]==$datos[$descarga]){
 					$EXISTE_OPCION='true';
 				}
 				switch (gettype($descarga)) {
@@ -874,8 +1022,7 @@ class libre_v2	{
 			if(empty($total))$total=0;
 		if($type=='text')echo"</div>";
 		return round($total,2);
-	}
-	
+	}	
 	function Presenta3			($id,$style,$style_t,$title,$col1,$col2,$t0,$t1,$t2,$repite,$limite,$name1,$name2,$name3,$n_r1,$n_r2,$title1,$title2,$max1,$max2,$style1,$style2,$d1,$d2,$final){
 		if ($col1==''){$col1=Comentarios;}
 		if ($col2==''){$col2=Importe;}
@@ -1077,8 +1224,8 @@ class libre_v2	{
 		if(!empty($array['memoria']))$memoria=$array['memoria'];
 		if($style=="")$style="width: 120px; height: 300px; background: #002681b3; position: absolute; top: 55px;";
 		if($script_input=="")$script_input="onClick='cambia_co_centro(this);'";
-		$id_def='id';
-		$id_sel='id_s';
+		$id_def='idI';
+		$id_sel='id_I';
 		$d1=$id_def;
 		$d2=$id_def;
 		$d3=$id_def;
@@ -1491,7 +1638,7 @@ class libre_v2	{
 	}
 	function add_array($array,$name,$new_dato){
 		if(empty($name))	$array[]=$new_dato;//ingresa un dato al final del array
-		if(!empty($name))	$array[$name][]=$new_dato;	//agregar en una subArrray	
+		if(!empty($name))	$array[$name][]=$new_dato;	//agregar en una subarray	
 		//if($name=="==")$array[$new_dato][]=$new_dato;//esta mal-> uso im practico
 		return $array;
 	}
@@ -1503,7 +1650,7 @@ class libre_v2	{
 		return $res;
 	}
 	function formato_num($numero){
-		$res=number_format($numero,2);
+		$res=number_format($numero,2, '.', ',');
 		return $res;
 	}
 	function suma_totales($array,$tabla,$title,$total_name,$intefaces,$conexion,$phpv){
@@ -1528,6 +1675,326 @@ class libre_v2	{
 		return $res;
 	}
 }
+class traductor {	
+	
+	public function traductor_tablas(){
+			$tablas['traduciones']['sistema_cuentas_ares']['folio']			=array(
+				"Revisado"		=> 	'CambRevi',
+				"ID_G"			=> 	'ID_G',
+				"CLIENTE"		=>	'CLIENTE',
+				"PLACAS"		=>	'PLACAS',
+				"CHOFER"		=>	'CHOFER',
+				"Descripcion"	=>	'Descripcion',
+				"Difer_1"		=>	'Difer_1',
+				"Carta1"		=>	'Carta1',
+				"Carta2"		=>	'Carta2',
+				"Carta3"		=>	'Carta3',
+				"Carta4"		=>	'Carta4',
+				"N_Cuenta"		=>	'N_Cuenta',
+				"sueldo"		=>	'sueldo',
+				"isr"			=>	'isr');
+			$tablas['traduciones']['sistema_cuentas_ares']['abo_acu']		=array(
+				'ID_G'=>'ID_G',
+				'add_en'=>'add_en',
+				'Hide_ac'=>'Hide_ac',
+				'ID_ac1'=>'ID_ac1',
+				'ID_ac2'=>'ID_ac2',
+				'ID_ac3'=>'ID_ac3',
+				'ID_ac4'=>'ID_ac4',
+				'ID_ac5'=>'ID_ac5',
+				'ac1'=>'ac1',
+				'ac2'=>'ac2',
+				'ac3'=>'ac3',
+				'ac4'=>'ac4',
+				'ac5'=>'ac5',
+				'Hide_ab'=>'Hide_ab',
+				'ab1'=>'ab1',
+				'ab2'=>'ab2',
+				'ab3'=>'ab3',
+				'ab4'=>'ab4',
+				'ab5'=>'ab5',
+				'ab_Com1'=>'ab_Com1',
+				'ab_Com2'=>'ab_Com2',
+				'ab_Com3'=>'ab_Com3',
+				'ab_Com4'=>'ab_Com4',
+				'ab_Com5'=>'ab_Com5',
+				'dif1'=>'dif1',
+				'Totalac'=>'Totalac',
+				'Totalab'=>'Totalab',
+				'Total_Total'=>'Total_Total',
+				'rete'=>'rete');
+			$tablas['traduciones']['sistema_cuentas_ares']['clientes']		=array(
+				'ID_Cl',
+				'Nombre_Cl',
+				'Fecha_re',
+				'Destino',
+				'N_fact');
+			$tablas['traduciones']['sistema_cuentas_ares']['choferes']		=array(
+				'ID_Ch',
+				'Nombre_Ch',
+				'Edad',
+				'Direccion',
+				'Celular',
+				'ulti_viaje',
+				'Estatus',
+				'N_Fact');
+			$tablas['traduciones']['sistema_cuentas_ares']['casetas']		=array(
+				'ID_G'=>'Carta1',
+				'HIDE4'=>'HIDE4',
+				'TOTAL4'=>'TOTAL4',
+				"4TEXT1"=>'4TEXT1',
+				"4TEXT2"=>'4TEXT2',
+				"4TEXT3"=>'4TEXT3',
+				"4TEXT4"=>'4TEXT4',
+				"4TEXT5"=>'4TEXT5',
+				"4TEXT6"=>'4TEXT6',
+				"4TEXT7"=>'4TEXT7',
+				"4TEXT8"=>'4TEXT8',
+				"4TEXT9"=>'4TEXT9',
+				"4TEXT10"=>'4TEXT10',
+				"4TEXT11"=>'4TEXT11',
+				"4TEXT12"=>'4TEXT12',
+				"4TEXT13"=>'4TEXT13',
+				"4TEXT14"=>'4TEXT14',
+				"4TEXT15"=>'4TEXT15',
+				"4TEXT16"=>'4TEXT16',
+				"4TEXT17"=>'4TEXT17',
+				"4TEXT18"=>'4TEXT18',
+				"4TEXT19"=>'4TEXT19',
+				"4TEXT20"=>'4TEXT20');
+			$tablas['traduciones']['sistema_cuentas_ares']['casetas_c']		=array(
+				'ID_G'=>'Carta1',
+				"4TEXT1"=>'4TEXT1',
+				"4TEXT2"=>'4TEXT2',
+				"4TEXT3"=>'4TEXT3',
+				"4TEXT4"=>'4TEXT4',
+				"4TEXT5"=>'4TEXT5',
+				"4TEXT6"=>'4TEXT6',
+				"4TEXT7"=>'4TEXT7',
+				"4TEXT8"=>'4TEXT8',
+				"4TEXT9"=>'4TEXT9',
+				"4TEXT10"=>'4TEXT10',
+				"4TEXT11"=>'4TEXT11',
+				"4TEXT12"=>'4TEXT12',
+				"4TEXT13"=>'4TEXT13',
+				"4TEXT14"=>'4TEXT14',
+				"4TEXT15"=>'4TEXT15',
+				"4TEXT16"=>'4TEXT16',
+				"4TEXT17"=>'4TEXT17',
+				"4TEXT18"=>'4TEXT18',
+				"4TEXT19"=>'4TEXT19',
+				"4TEXT20"=>'4TEXT20');
+			$tablas['traduciones']['sistema_cuentas_ares']['casetas_via']	=array(
+				'ID_G'=>'Carta1',
+				'HIDE'=>'HIDE',
+				'TOTAL'=>'TOTAL',
+				"TEXT1"=>'TEXT1',
+				"TEXT2"=>'TEXT2',
+				"TEXT3"=>'TEXT3',
+				"TEXT4"=>'TEXT4',
+				"TEXT5"=>'TEXT5',
+				"TEXT6"=>'TEXT6',
+				"TEXT7"=>'TEXT7',
+				"TEXT8"=>'TEXT8',
+				"TEXT9"=>'TEXT9',
+				"TEXT10"=>'TEXT10',
+				"TEXT11"=>'TEXT11',
+				"TEXT12"=>'TEXT12',
+				"TEXT13"=>'TEXT13',
+				"TEXT14"=>'TEXT14',
+				"TEXT15"=>'TEXT15',
+				"TEXT16"=>'TEXT16',
+				"TEXT17"=>'TEXT17',
+				"TEXT18"=>'TEXT18',
+				"TEXT19"=>'TEXT19',
+				"TEXT20"=>'TEXT20');
+			$tablas['traduciones']['sistema_cuentas_ares']['casetas_c_via']	=array(
+				'ID_G'=>'Carta1',
+				"TEXT1"=>'TEXT1',
+				"TEXT2"=>'TEXT2',
+				"TEXT3"=>'TEXT3',
+				"TEXT4"=>'TEXT4',
+				"TEXT5"=>'TEXT5',
+				"TEXT6"=>'TEXT6',
+				"TEXT7"=>'TEXT7',
+				"TEXT8"=>'TEXT8',
+				"TEXT9"=>'TEXT9',
+				"TEXT10"=>'TEXT10',
+				"TEXT11"=>'TEXT11',
+				"TEXT12"=>'TEXT12',
+				"TEXT13"=>'TEXT13',
+				"TEXT14"=>'TEXT14',
+				"TEXT15"=>'TEXT15',
+				"TEXT16"=>'TEXT16',
+				"TEXT17"=>'TEXT17',
+				"TEXT18"=>'TEXT18',
+				"TEXT19"=>'TEXT19',
+				"TEXT20"=>'TEXT20');
+			$tablas['traduciones']['sistema_cuentas_ares']['facturas']		=array(
+				'ID_G'=>'ID_G',
+				'HIDE5'=>'HIDE5',
+				'TOTAL5'=>'TOTAL5',
+				"5TEXT1"=>'5TEXT1',
+				"5TEXT2"=>'5TEXT2',
+				"5TEXT3"=>'5TEXT3',
+				"5TEXT4"=>'5TEXT4',
+				"5TEXT5"=>'5TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['facturas_c']	=array(
+				'ID_G'=>'ID_G',
+				"5TEXT1"=>'5TEXT1',
+				"5TEXT2"=>'5TEXT2',
+				"5TEXT3"=>'5TEXT3',
+				"5TEXT4"=>'5TEXT4',
+				"5TEXT5"=>'5TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['fletes']		=array(
+				"ID_G"		=> 	"ID_G",
+				"HIDE1"		=> 	"HIDE1",
+				"TOTAL1"	=> 	"TOTAL1",
+				"1TEXT1"	=> 	"1TEXT1",
+				"1TEXT2"	=> 	"1TEXT2",
+				"1TEXT3"	=> 	"1TEXT3",
+				"1TEXT4"	=> 	"1TEXT4",
+				"1TEXT5"	=> 	"1TEXT5",
+				"Flete_R"	=> 	"Flete_R",
+				"comi_ass"	=> 	"comi_ass");
+			$tablas['traduciones']['sistema_cuentas_ares']['fletes_c']		=array(
+				"ID_G"		=> 	"ID_G",
+				"1TEXT1"	=> 	"1TEXT1",
+				"1TEXT2"	=> 	"1TEXT2",
+				"1TEXT3"	=> 	"1TEXT3",
+				"1TEXT4"	=> 	"1TEXT4",
+				"1TEXT5"	=> 	"1TEXT5");
+			
+			$tablas['traduciones']['sistema_cuentas_ares']['fechas']		=array(
+				"ID_G"	=> 	"Carta1",
+				"D"		=> 	"D",
+				"M"		=>	"M",
+				"A"		=>	"A",
+				"D_r"	=>	"D_r",
+				"M_r"	=>	"M_r",
+				"A_r"	=>	"A_r",
+				"D_c"	=>	"D_c",
+				"M_c"	=>	"M_c",
+				"A_c"	=>	"A_c",);	
+				#"inicio"=>	"inicio",
+				#'fin'	=>  'fin');	
+			$tablas['traduciones']['sistema_cuentas_ares']['viaticos']		=array(
+				'ID_G'=>'ID_G',
+				'HIDE2'=>'HIDE2',
+				'TOTAL2'=>'TOTAL2',
+				"2TEXT1"=>'2TEXT1',
+				"2TEXT2"=>'2TEXT2',
+				"2TEXT3"=>'2TEXT3',
+				"2TEXT4"=>'2TEXT4',
+				"2TEXT5"=>'2TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['viaticos_c']	=array(
+				'ID_G'=>'ID_G',
+				"2TEXT1"=>'2TEXT1',
+				"2TEXT2"=>'2TEXT2',
+				"2TEXT3"=>'2TEXT3',
+				"2TEXT4"=>'2TEXT4',
+				"2TEXT5"=>'2TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['diesel']		=array(
+				'ID_G'=>'ID_G',
+				'HIDE3'=>'HIDE3',
+				'TOTAL3'=>'TOTAL3',
+				"3TEXT1"=>'3TEXT1',
+				"3TEXT2"=>'3TEXT2',
+				"3TEXT3"=>'3TEXT3',
+				"3TEXT4"=>'3TEXT4',
+				"3TEXT5"=>'3TEXT5',
+				"3TEXT6"=>'3TEXT6',
+				"3TEXT7"=>'3TEXT7',
+				'presio_d'=>'presio_d',);
+				#'medidor_inicio'=>'medidor_inicio',
+				#'medidor_final'=>'medidor_final');
+			$tablas['traduciones']['sistema_cuentas_ares']['diesel_c']		=array(
+				'ID_G'=>'ID_G',
+				"3TEXT1"=>'3TEXT1',
+				"3TEXT2"=>'3TEXT2',
+				"3TEXT3"=>'3TEXT3',
+				"3TEXT4"=>'3TEXT4',
+				"3TEXT5"=>'3TEXT5',
+				"3TEXT6"=>'3TEXT6',
+				"3TEXT7"=>'3TEXT7');
+			$tablas['traduciones']['sistema_cuentas_ares']['ryr']			=array(
+				'ID_G'=>'ID_G',
+				'HIDE6'=>'HIDE6',
+				'TOTAL6'=>'TOTAL6',
+				"6TEXT1"=>'6TEXT1',
+				"6TEXT2"=>'6TEXT2',
+				"6TEXT3"=>'6TEXT3',
+				"6TEXT4"=>'6TEXT4',
+				"6TEXT5"=>'6TEXT5',
+				"6TEXT6"=>'6TEXT6',
+				"6TEXT7"=>'6TEXT7',
+				"6TEXT8"=>'6TEXT8',
+				"6TEXT9"=>'6TEXT9',
+				"6TEXT10"=>'6TEXT10');
+			$tablas['traduciones']['sistema_cuentas_ares']['ryr_c']			=array(
+				'ID_G'=>'ID_G',
+				"6TEXT1"=>'6TEXT1',
+				"6TEXT2"=>'6TEXT2',
+				"6TEXT3"=>'6TEXT3',
+				"6TEXT4"=>'6TEXT4',
+				"6TEXT5"=>'6TEXT5',
+				"6TEXT6"=>'6TEXT6',
+				"6TEXT7"=>'6TEXT7',
+				"6TEXT8"=>'6TEXT8',
+				"6TEXT9"=>'6TEXT9',
+				"6TEXT10"=>'6TEXT10');
+			$tablas['traduciones']['sistema_cuentas_ares']['guias']			=array(
+				'ID_G'=>'ID_G',
+				'HIDE7'=>'HIDE7',
+				'TOTAL7'=>'TOTAL7',
+				"7TEXT1"=>'7TEXT1',
+				"7TEXT2"=>'7TEXT2',
+				"7TEXT3"=>'7TEXT3',
+				"7TEXT4"=>'7TEXT4',
+				"7TEXT5"=>'7TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['guias_c']		=array(
+				'ID_G'=>'ID_G',
+				"7TEXT1"=>'7TEXT1',
+				"7TEXT2"=>'7TEXT2',
+				"7TEXT3"=>'7TEXT3',
+				"7TEXT4"=>'7TEXT4',
+				"7TEXT5"=>'7TEXT5');
+			$tablas['traduciones']['sistema_cuentas_ares']['maniobras']		=array(
+				'ID_G'=>'ID_G',
+				'HIDE8'=>'HIDE8',
+				'TOTAL8'=>'TOTAL8',
+				"8TEXT1"=>'8TEXT1',
+				"8TEXT2"=>'8TEXT2',
+				"8TEXT3"=>'8TEXT3',
+				"8TEXT4"=>'8TEXT4',
+				"8TEXT5"=>'8TEXT5',
+				"8TEXT6"=>'8TEXT6');
+			$tablas['traduciones']['sistema_cuentas_ares']['maniobras_c']	=array(
+				'ID_G'=>'ID_G',
+				"8TEXT1"=>'8TEXT1',
+				"8TEXT2"=>'8TEXT2',
+				"8TEXT3"=>'8TEXT3',
+				"8TEXT4"=>'8TEXT4',
+				"8TEXT5"=>'8TEXT5',
+				"8TEXT6"=>'8TEXT6');
+			
+			$tablas['traduciones']['sistema_cuentas_ares']['km']			=array(
+				"ID_G"	=> 	"ID_G",
+				"KM_S"	=> 	"KM_S",
+				"KM_E"	=>	"KM_E");				
+			$tablas['traduciones']['sistema_cuentas_ares']['placas']		=array(
+				'ID_Pl',
+				'Placas',
+				'Marca',
+				'Modelo',
+				'N_eco',
+				'Color');
+		
+		return $tablas;
+	}
+	
+}
+
 class tablas_v2	{		
 	//$array_insert	= array('','');
 	//$array_update	= array('','');
@@ -1540,32 +2007,32 @@ class tablas_v2	{
 		$db3='login';
 		$db4='combustible';
 		if($db==$db1 or $db==$db1_1){ #empresa o sistema_cuentas_ares
-			$tb1	='folio';
-			$tb2	='abo_acu';
-			$tb27	='clientes';
-			$tb25	='choferes';
-			$tb3	='casetas';
-			$tb4	='casetas_c';
-			$tb5	='casetas_via';
-			$tb24	='casetas_c_via';
-			$tb10	='facturas';
-			$tb17	='facturas_c';
-			$tb6	='fletes';
-			$tb14	='fletes_c';
-			$tb21	='fechas';
-			$tb7	='viaticos';
-			$tb15	='viaticos_c';
-			$tb8	='diesel';
-			$tb16	='diesel_c';
-			$tb11	='ryr';
-			$tb18	='ryr_c';
-			$tb12	='guias';
-			$tb19	='guias_c';
-			$tb13	='maniobras';
-			$tb20	='maniobras_c';
-			$tb22	='km';
-			$tb23	='update1';
-			$tb26	='placas';
+				$tb1	='folio';
+				$tb2	='abo_acu';
+				$tb27	='clientes';
+				$tb25	='choferes';
+				$tb3	='casetas';
+				$tb4	='casetas_c';
+				$tb5	='casetas_via';
+				$tb24	='casetas_c_via';
+				$tb10	='facturas';
+				$tb17	='facturas_c';
+				$tb6	='fletes';
+				$tb14	='fletes_c';
+				$tb21	='fechas';
+				$tb7	='viaticos';
+				$tb15	='viaticos_c';
+				$tb8	='diesel';
+				$tb16	='diesel_c';
+				$tb11	='ryr';
+				$tb18	='ryr_c';
+				$tb12	='guias';
+				$tb19	='guias_c';
+				$tb13	='maniobras';
+				$tb20	='maniobras_c';
+				$tb22	='km';
+				$tb23	='update1';
+				$tb26	='placas';
 			//tablas_v1::info(empresa,folio);
 			if($tb==$tb1){//folio
 				$traducion="manual";
@@ -2098,7 +2565,8 @@ class tablas_v2	{
 					"8TEXT3"=>'8TEXT3',
 					"8TEXT4"=>'8TEXT4',
 					"8TEXT5"=>'8TEXT5',
-					"8TEXT6"=>'8TEXT6');
+					"8TEXT6"=>'8TEXT6'
+				);
 				$array_none		= array('','','','','','','','','');//9
 				$array_insert	= array('','','','','','','','','');//9
 				$array_update	= array('','','','','','','','','');//9
@@ -2439,8 +2907,8 @@ class tablas_v2	{
 			}
 			if($tb==$tb25){//choferes
 				$traducion		="auto";
-				$array_mysql	= array(ID_Ch	,Nombre_Ch,Edad,Direccion, Celular,ulti_viaje,Estatus,N_Fact);
-				$array_name 	= array(ID_Ch	,chofer,Edad,Direccion,Celular,ulti_viaje,Estatus,N_Fact);
+				$array_mysql	= array('ID_Ch'	,'Nombre_Ch','Edad','Direccion', 'Celular','ulti_viaje','Estatus','N_Fact');
+				$array_name 	= array('ID_Ch'	,'chofer','Edad','Direccion','Celular','ulti_viaje','Estatus','N_Fact');
 				$array_none		= array('1','','','','','','','');//7
 				$array_insert	= array('1','','','','','','','');
 				$array_update	= array('1','','','','','1','1','1');
@@ -2451,8 +2919,8 @@ class tablas_v2	{
 			if($tb==$tb26){//placas
 				
 				$traducion		="auto";
-				$array_mysql	= array(ID_Pl	,Placas,Marca,Modelo, N_eco,Color);
-				$array_name 	= array(ID_Pl	,placas,Marca,Modelo, N_eco,Color);
+				$array_mysql	= array('ID_Pl'	,'Placas','Marca','Modelo', 'N_eco','Color');
+				$array_name 	= array('ID_Pl'	,'placas','Marca','Modelo', 'N_eco','Color');
 				$array_none		= array('1','','','','','');//5
 				$array_insert	= array('1','','','','','');
 				$array_update	= array('1','','','','','');
@@ -2461,8 +2929,8 @@ class tablas_v2	{
 			if($tb==$tb27){//clientes
 				
 				$traducion		="auto";
-				$array_mysql	= array(ID_Cl	,Nombre_Cl,Fecha_re,Destino, N_fact);
-				$array_name		= array(ID_Cl	,cliente,Fecha_re,destino,N_fact);
+				$array_mysql	= array('ID_Cl'	,'Nombre_Cl','Fecha_re','Destino', 'N_fact');
+				$array_name		= array('ID_Cl'	,'cliente','Fecha_re','destino','N_fact');
 				$array_none		= array('1','','','','');//5
 				$array_insert	= array('1','','','','');
 				$array_update	= array('1','','1','','1');
@@ -2880,6 +3348,7 @@ class tablas_v2	{
 			}
 		}
 		if(empty($array_type))$array_type='';
+		if(empty($traducion))$traducion='';
 		if(empty($array_id))$array_id='';
 		if(empty($array_class))$array_class='';
 		if(empty($array_valida))$array_valida='';

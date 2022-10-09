@@ -24,7 +24,7 @@
             );
             $name_menu_cenntral="menu_central";            
             $class=array(
-                'Conte_princiapal'=>'Menu_central',
+                'Conte_principal'=>'Menu_central',
                 'Div_Opcion'=>'Conte_Cuadrado_auto',
                 'Boton'=>'boton_Cuadrado_auto_claro',
                 'img'=>'img_Cuadrado_auto'

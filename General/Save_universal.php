@@ -36,7 +36,7 @@
     }
     if(mysqli_affected_rows($conexion)>0){
         $libre_v4->Columnas($database,$tabla);
-        $libre_v4->ColunasInPostClear();
+        $libre_v4->ColunasInPostClear('');
     }
     */
     

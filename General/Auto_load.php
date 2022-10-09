@@ -2,7 +2,10 @@
     #dia o mysql workbench para mysql 
     #js react jquerry angular
     #css materialize boostrap
-
+    #clave de camaras  ivm gerencia@transportegarcia.com
+    #523141009031
+    #Protector25789
+    #Protec
     //error_reporting('E_ALL');
     ini_set('display_errors', 1);
     date_default_timezone_set("Mexico/General");
@@ -19,10 +22,11 @@
     include_once("libre_v4.php");
     include_once("libre_v5.php");
     #if(!empty($programa_ejecucion)){
-        echo"<LINK REL='STYLESHEET' HREF='/Librerias/General/Estilos_v5.css' />";
+        echo"<LINK REL='stylesheet' HREF='/Librerias/General/Estilos_v5.css' />";
         echo"<link rel='stylesheet' href='../fontawesome/css/all.css' >";
-        echo"<LINK REL='STYLESHEET' HREF='/Librerias/General/estilo.css' />";
-        echo"<LINK REL='STYLESHEET' HREF='/Librerias/General/conte_v1.css' />";
+        echo"<LINK REL='stylesheet' HREF='/Librerias/General/estilo.css' />";
+        echo"<LINK REL='stylesheet' HREF='/Librerias/General/conte_v1.css' />";
+        echo"<LINK REL='stylesheet' HREF='/Librerias/General/Bloques.css' />";
         #echo"<LINK REL='STYLESHEET' HREF='../estilo2.css' />";
         #echo"<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">";
 
@@ -31,6 +35,7 @@
         echo"<script type='text/javascript' language='javascript' src='/Librerias/General/libre_v1.js'></script> ";	
         echo"<script type='text/javascript' language='javascript' src='/Librerias/General/libre_v2.js'></script> ";	
         echo"<script type='text/javascript' language='javascript' src='/Librerias/General/libre_v5.js'></script> ";	      
+        echo"<script type='text/javascript' language='javascript' src='/Librerias/APP/APP.js'></script> ";	      
     #}
     if(empty($Excel))$Excel= new Excel();	
     if(empty($Ares_v1))$Ares_v1= new Ares_v1();
